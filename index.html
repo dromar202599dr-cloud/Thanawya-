@@ -3,29 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>منظّم الثانوية العامة</title>
+<title>Entylaka platform</title>
 <style>
-:root{--bg:#eef2fb;--card:#fff;--tx:#14213d;--mu:#5b6785;--ac:#1d3fbb;--hl:#ffe14d;--hlt:#14213d;--bad:#b42318;--badbg:#fee4e2;--bd:#d6ddef;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#0e1424;--card:#172038;--tx:#e8ecf8;--mu:#97a3c4;--ac:#7f9bff;--bad:#ffb4ab;--badbg:#4a1d1a;--bd:#2a3556}}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--bg:#f6f1fb;--card:#ffffff;--tx:#2e1a47;--mu:#6e5a84;--ac:#7b3f9e;--acd:#5e2d7a;--hl:#ffd60a;--hlt:#2e1a47;--bad:#b42318;--badbg:#fde7f0;--bd:#e3d4f0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;line-height:1.6}
-main{max-width:560px;margin:0 auto;padding:16px 14px 40px}
-h1{font-size:22px;margin:4px 0 2px}
-.sub{color:var(--mu);font-size:14px;margin:0 0 14px}
+main{max-width:560px;margin:0 auto;padding:16px 14px 110px}
+.brand{background:linear-gradient(135deg,var(--ac),var(--acd));color:#fff;border-radius:18px;padding:18px 16px;margin-bottom:14px;text-align:center}
+.brand h1{font-size:24px;margin:0 0 4px;color:#fff}
+.brand p{margin:0;font-size:15px;color:#fff3c4}
+.brand .dot{color:var(--hl)}
+.sub{color:var(--mu);font-size:14px;margin:0 0 12px}
 .card,.prog,.add{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:12px}
 .add{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .add input[type=text]{grid-column:1/-1}
 input,select,button{font:inherit;color:var(--tx)}
-input,select{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;min-width:0;width:100%}
+input,select{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:10px;min-width:0;width:100%}
 .card input{margin-bottom:8px}
 button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px}
 .go{grid-column:1/-1;width:100%;background:var(--ac);color:#fff;font-weight:700}
-@media (prefers-color-scheme:dark){.go,.badge{color:#0e1424}}
+.go:hover{background:var(--acd)}
+.wa-float{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:10;display:inline-block;background:#25d366;color:#fff;font-weight:700;border-radius:24px;padding:12px 18px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.18)}
 .bar{height:14px;background:var(--bd);border-radius:7px;overflow:hidden;margin-top:8px}
 .bar i{display:block;height:100%;background:var(--hl);width:0;transition:width .3s}
-.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.lnk{background:none;color:var(--mu);padding:4px 8px;font-size:14px;text-decoration:underline}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.lnk{background:none;color:var(--ac);padding:4px 8px;font-size:14px;text-decoration:underline}
 .err{color:var(--bad);font-size:14px;min-height:20px;margin:6px 0 0}
 details{margin-top:12px;color:var(--mu)}summary{cursor:pointer;margin-bottom:8px}
 .tabs{display:flex;gap:6px;margin-bottom:10px}
@@ -50,15 +53,23 @@ details{margin-top:12px;color:var(--mu)}summary{cursor:pointer;margin-bottom:8px
 .st .bar{margin:6px 0}.st .tt div{font-size:14px}
 .cd{font-family:monospace;direction:ltr;display:inline-block;background:var(--bg);border-radius:6px;padding:0 8px}
 .mini{background:var(--bg);border:1px solid var(--bd);font-size:13px;padding:4px 10px;margin-inline-end:6px}
+.days{font-size:13px;font-weight:700;color:var(--ac)}
+.days.off{color:var(--bad)}
+.exp{text-align:center;padding:20px 12px}
+.exp b{display:block;font-size:17px;margin-bottom:6px}
 </style>
 </head>
 <body>
 <main>
-<h1>منظّم الثانوية العامة</h1>
+<div class="brand">
+<h1>Entylaka platform</h1>
+<p>أهلاً بيك يا بطل <span class="dot">❤️</span></p>
+</div>
 
 <section id="login" class="card">
-<p class="sub">اكتب الكود اللي مدرّسك إداهولك.</p>
+<p class="sub">اكتب الكود والاسم اللي مدرّسك إداهولك.</p>
 <input id="cd" type="text" placeholder="الكود" maxlength="12" autocapitalize="characters" autocomplete="off" dir="ltr">
+<input id="nm" type="text" placeholder="اسمك" maxlength="60" autocomplete="off">
 <button class="go" id="lg">دخول</button>
 <p class="err" id="le"></p>
 <details><summary>دخول المدرّس</summary>
@@ -67,11 +78,19 @@ details{margin-top:12px;color:var(--mu)}summary{cursor:pointer;margin-bottom:8px
 <button class="go" id="tg">دخول المدرّس</button></details>
 </section>
 
+<section id="exp" class="card" hidden>
+<div class="exp">
+<b>اشتراكك خلص</b>
+<p class="sub">تواصل مع الدعم عشان تجدد اشتراكك.</p>
+<button class="lnk" id="out2">خروج</button>
+</div>
+</section>
+
 <section id="stu" hidden>
 <div class="top"><b id="hi"></b><span><span id="ss" class="sub"></span> <button class="lnk" id="out">خروج</button></span></div>
 <div class="prog"><b id="pt"></b><div class="bar"><i id="pb"></i></div></div>
 <div class="add">
-<input type="text" id="ti" placeholder="المهمة (مثلاً: حل 20 مسألة تفاضل)" maxlength="120">
+<input type="text" id="ti" placeholder="المهمة (مثلاً: مذاكرة محاضرة أحياء)" maxlength="120">
 <select id="su"></select>
 <input type="date" id="da">
 <button class="go" id="ad">أضف المهمة</button>
@@ -94,13 +113,21 @@ details{margin-top:12px;color:var(--mu)}summary{cursor:pointer;margin-bottom:8px
 </section>
 </main>
 
+<a id="wa" class="wa-float" target="_blank" rel="noopener" hidden>تواصل معانا على واتساب</a>
+
 <script>
-/* غيّر القيمتين دول لو مشروعك مختلف */
+/* بيانات الاتصال بقاعدة البيانات */
 var CFG={u:'https://xdgbudvnejufhpsiwwyf.supabase.co',k:'sb_publishable_A8kIb7sqUkcVjCVqZvffhg_eopruyEd'};
+/* رقم الواتساب بصيغة دولية بدون + أو مسافات */
+var WA_NUMBER='201556506619';
+var WA_TEXT='أهلاً يا بطل، محتاج مساعدة في المنظم';
+$('wa').href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(WA_TEXT);
+
 var $=function(i){return document.getElementById(i)};
-var S={tasks:[],cap:3,name:''},code='',tab='today',tok=null,rows=[],pt=0;
+var S={tasks:[],cap:3},code='',sname='',tab='today',tok=null,rows=[],pt=0;
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
-function show(w){['login','stu','tch'].forEach(function(i){$(i).hidden=i!==w})}
+function show(w){['login','stu','tch','exp'].forEach(function(i){$(i).hidden=i!==w})}
+function showWa(on){$('wa').hidden=!on}
 function p2(n){return String(n).padStart(2,'0')}
 function ds(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())}
 function today(){return ds(new Date())}
@@ -123,21 +150,34 @@ var SUBJ=['عربي','إنجليزي','لغة ثانية','رياضيات','في
 $('su').innerHTML=SUBJ.map(function(s){return'<option>'+s+'</option>'}).join('');
 $('da').value=today();
 
-async function enter(c){
- c=c.trim().toUpperCase();if(!c)return;
+async function enter(c,n){
+ c=(c||'').trim().toUpperCase();n=(n||'').trim();
+ if(!c||!n){$('le').textContent='اكتب الكود والاسم.';return}
  $('le').textContent='';
  try{
-  var r=await api('/rest/v1/rpc/get_student',{m:'POST',b:{p_code:c}});
-  if(!r||!r.length){$('le').textContent='الكود غلط. اتأكد منه مع مدرّسك.';ls('tp-code',null);show('login');return}
-  code=c;S.name=r[0].name;var d=r[0].data||{};S.tasks=d.tasks||[];S.cap=d.cap||3;
-  ls('tp-code',code);$('hi').textContent='أهلاً '+S.name;$('ss').textContent='';tab='today';show('stu');render();
- }catch(e){$('le').textContent='تعذّر الاتصال. جرّب تاني.';show('login')}
+  var r=await api('/rest/v1/rpc/get_student',{m:'POST',b:{p_code:c,p_name:n}});
+  if(!r||!r.length){
+   $('le').textContent='الكود أو الاسم غلط، اتأكد منهم مع مدرّسك.';
+   ls('tp-code',null);ls('tp-name',null);show('login');showWa(false);return;
+  }
+  var x=r[0];code=c;sname=x.name;
+  ls('tp-code',c);ls('tp-name',x.name);
+  $('hi').textContent='أهلاً '+x.name;
+  showWa(true);
+  if(x.expired){show('exp');return}
+  S.tasks=(x.data&&x.data.tasks)||[];S.cap=(x.data&&x.data.cap)||3;
+  tab='today';show('stu');render();
+ }catch(e){
+  show('login');
+  if(e.status===400)$('le').textContent='محاولات كتير غلط. استنى 15 دقيقة وجرّب تاني.';
+  else $('le').textContent='تعذّر الاتصال. جرّب تاني.';
+ }
 }
 function save(){$('ss').textContent='بيتحفظ...';clearTimeout(pt);pt=setTimeout(push,700)}
 async function push(){
  try{
-  var ok=await api('/rest/v1/rpc/save_student',{m:'POST',b:{p_code:code,p_data:{tasks:S.tasks,cap:S.cap}}});
-  if(ok===false){$('ss').textContent='⚠ ماتحفظش. ارجع ادخل بالكود.';return}
+  var ok=await api('/rest/v1/rpc/save_student',{m:'POST',b:{p_code:code,p_name:sname,p_data:{tasks:S.tasks,cap:S.cap}}});
+  if(ok===false){$('ss').textContent='⚠ ماتحفظش. الاشتراك ممكن يكون خلص.';return}
   $('ss').textContent='✓ اتحفظ';
  }catch(e){$('ss').textContent='⚠ ماتحفظش، هنحاول تاني';pt=setTimeout(push,8000)}
 }
@@ -198,6 +238,15 @@ $('list').onclick=function(e){
  save();render();
 };
 
+function logoutStudent(){
+ ls('tp-code',null);ls('tp-name',null);
+ code='';sname='';S={tasks:[],cap:3};
+ $('cd').value='';$('nm').value='';$('le').textContent='';
+ showWa(false);show('login');
+}
+$('out').onclick=logoutStudent;
+$('out2').onclick=logoutStudent;
+
 /* ===== المدرّس ===== */
 function stat(ts){
  var T=today(),w=add(T,-6);
@@ -211,29 +260,34 @@ function gen(){
 }
 function trender(){
  if(!rows.length){$('tlist').innerHTML='<div class="empty">لسه مفيش طلاب. أضف أول طالب من فوق.</div>';return}
- var L=rows.map(function(x){var ts=(x.data&&x.data.tasks)||[];return{x:x,s:stat(ts),d:Math.floor((Date.now()-new Date(x.updated_at).getTime())/864e5),n:ts.length}}).sort(function(a,b){return b.s.back-a.s.back});
+ var L=rows.map(function(x){
+  var ts=(x.data&&x.data.tasks)||[];
+  var left=Math.ceil((new Date(x.expires_at).getTime()-Date.now())/864e5);
+  return{x:x,s:stat(ts),d:Math.floor((Date.now()-new Date(x.updated_at).getTime())/864e5),n:ts.length,left:left};
+ }).sort(function(a,b){return b.s.back-a.s.back});
  var h='<div class="prog"><b>'+L.length+' طالب، منهم '+L.filter(function(o){return o.s.back>0}).length+' عندهم تراكمات</b></div>';
  h+=L.map(function(o){
   var s=o.s,rate=s.wk?Math.round(s.wkd/s.wk*100):0,warn=s.back>=5||(o.n>0&&o.d>=2);
   var subs=Object.keys(s.by).map(function(k){return '<span class="chip">'+esc(k)+' '+s.by[k]+'</span>'}).join(' ');
-  return '<div class="t st'+(warn?' warn':'')+'"><div class="tt"><b>'+esc(o.x.name)+'</b>'+(warn?' ⚠️':'')+
+  var daysTxt=o.left>0?'<span class="days">فاضل '+o.left+' يوم</span>':'<span class="days off">الاشتراك خلص</span>';
+  return '<div class="t st'+(warn?' warn':'')+'"><div class="tt"><b>'+esc(o.x.name)+'</b>'+(warn?' ⚠️':'')+' '+daysTxt+
   '<div>النهارده: '+s.tdd+' من '+s.td+'، إنجاز الأسبوع: '+rate+'%</div><div class="bar"><i style="width:'+rate+'%"></i></div>'+
   '<div>متراكم: '+s.back+' '+subs+'</div>'+
   '<div style="color:var(--mu)">آخر نشاط: '+(o.n===0?'لسه ما بدأش':(o.d<1?'النهارده':'من '+o.d+' يوم'))+'</div>'+
-  '<div style="margin-top:6px">الكود: <span class="cd">'+esc(o.x.code)+'</span> <button class="mini" data-cp="'+esc(o.x.code)+'">انسخ</button><button class="mini" data-del="'+esc(o.x.id)+'" data-nm="'+esc(o.x.name)+'">احذف</button></div>'+
+  '<div style="margin-top:6px">الكود: <span class="cd">'+esc(o.x.code)+'</span> <button class="mini" data-cp="'+esc(o.x.code)+'">انسخ</button><button class="mini" data-act="'+esc(o.x.id)+'">تفعيل 30 يوم</button><button class="mini" data-del="'+esc(o.x.id)+'" data-nm="'+esc(o.x.name)+'">احذف</button></div>'+
   '</div></div>';
  }).join('');
  $('tlist').innerHTML=h;
 }
 async function load(){
- try{rows=await api('/rest/v1/students?select=id,code,name,data,updated_at&order=name');trender()}
+ try{rows=await api('/rest/v1/students?select=id,code,name,data,updated_at,expires_at&order=name');trender()}
  catch(e){if(e.status===401||e.status===403){tok=null;$('le').textContent='الجلسة خلصت. ادخل تاني.';show('login')}else{$('tlist').innerHTML='<div class="empty">تعذّر تحميل البيانات.</div>'}}
 }
 async function tLogin(){
  $('le').textContent='';
  try{
   var r=await api('/auth/v1/token?grant_type=password',{m:'POST',b:{email:$('em').value.trim(),password:$('pw').value}});
-  tok=r.access_token;$('pw').value='';show('tch');await load();
+  tok=r.access_token;$('pw').value='';showWa(false);show('tch');await load();
  }catch(e){tok=null;$('le').textContent='الإيميل أو كلمة السر غلط، أو مفيش اتصال.'}
 }
 $('sa').onclick=async function(){
@@ -244,21 +298,28 @@ $('sa').onclick=async function(){
  }
 };
 $('tlist').onclick=async function(e){
- var t=e.target,c=t.dataset.cp,id=t.dataset.del;
+ var t=e.target,c=t.dataset.cp,id=t.dataset.del,act=t.dataset.act;
  if(c){try{await navigator.clipboard.writeText(c);t.textContent='اتنسخ ✓'}catch(x){prompt('انسخ الكود:',c)}return}
+ if(act){
+  try{await api('/rest/v1/rpc/activate_student',{m:'POST',b:{p_id:act}});await load()}catch(x){alert('تعذّر التفعيل.')}
+  return;
+ }
  if(id&&confirm('تحذف '+t.dataset.nm+' وكل مهامه؟')){
   try{await api('/rest/v1/students?id=eq.'+encodeURIComponent(id),{m:'DELETE'});await load()}catch(x){alert('تعذّر الحذف.')}
  }
 };
+$('tout').onclick=function(){tok=null;rows=[];show('login')};
 
 /* ===== الدخول ===== */
-$('lg').onclick=function(){enter($('cd').value)};
-$('cd').onkeydown=function(e){if(e.key==='Enter')$('lg').click()};
+$('lg').onclick=function(){enter($('cd').value,$('nm').value)};
+$('nm').onkeydown=function(e){if(e.key==='Enter')$('lg').click()};
+$('cd').onkeydown=function(e){if(e.key==='Enter')$('nm').focus()};
 $('tg').onclick=tLogin;
 $('pw').onkeydown=function(e){if(e.key==='Enter')tLogin()};
-$('out').onclick=function(){ls('tp-code',null);code='';S={tasks:[],cap:3,name:''};$('cd').value='';show('login')};
-$('tout').onclick=function(){tok=null;rows=[];show('login')};
-var saved=ls('tp-code');if(saved)enter(saved);else show('login');
+
+show('login');showWa(false);
+var savedCode=ls('tp-code'),savedName=ls('tp-name');
+if(savedCode&&savedName){enter(savedCode,savedName)}
 </script>
 </body>
 </html>
