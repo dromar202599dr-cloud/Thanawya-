@@ -30,6 +30,7 @@ button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .lnk{background:none;color:var(--ac);padding:4px 8px;font-size:14px;text-decoration:underline}
 .err{color:var(--bad);font-size:14px;min-height:20px;margin:6px 0 0}
+.ok{color:#157a3d;font-size:14px;min-height:20px;margin:6px 0 0;font-weight:700}
 details{margin-top:12px;color:var(--mu)}summary{cursor:pointer;margin-bottom:8px}
 .tabs{display:flex;gap:6px;margin-bottom:10px}
 .tabs button{flex:1;background:var(--card);border:1px solid var(--bd);font-weight:600;padding:9px 4px}
@@ -78,6 +79,16 @@ details{margin-top:12px;color:var(--mu)}summary{cursor:pointer;margin-bottom:8px
 <button class="go" id="tg">دخول المدرّس</button></details>
 </section>
 
+<section id="reset" class="card" hidden>
+<p class="sub">اكتب كلمة السر الجديدة للمدرّس.</p>
+<input id="np1" type="password" placeholder="كلمة السر الجديدة (8 حروف على الأقل)" dir="ltr" autocomplete="new-password">
+<input id="np2" type="password" placeholder="أكّد كلمة السر" dir="ltr" autocomplete="new-password">
+<button class="go" id="rs">احفظ كلمة السر</button>
+<p class="err" id="re"></p>
+<p class="ok" id="rok"></p>
+<button class="lnk" id="rback" hidden>ارجع لصفحة الدخول</button>
+</section>
+
 <section id="exp" class="card" hidden>
 <div class="exp">
 <b>اشتراكك خلص</b>
@@ -124,9 +135,9 @@ var WA_TEXT='أهلاً يا بطل، محتاج مساعدة في المنظم'
 $('wa').href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(WA_TEXT);
 
 var $=function(i){return document.getElementById(i)};
-var S={tasks:[],cap:3},code='',sname='',tab='today',tok=null,rows=[],pt=0;
+var S={tasks:[],cap:3},code='',sname='',tab='today',tok=null,rows=[],pt=0,recTok=null;
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
-function show(w){['login','stu','tch','exp'].forEach(function(i){$(i).hidden=i!==w})}
+function show(w){['login','stu','tch','exp','reset'].forEach(function(i){$(i).hidden=i!==w})}
 function showWa(on){$('wa').hidden=!on}
 function p2(n){return String(n).padStart(2,'0')}
 function ds(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())}
@@ -144,6 +155,40 @@ async function api(path,o){
  if(!r.ok){var e=new Error('http');e.status=r.status;throw e}
  var t=await r.text();return t?JSON.parse(t):null;
 }
+
+/* ===== تغيير كلمة السر من رابط الإيميل ===== */
+(function checkRecovery(){
+ var h=window.location.hash||'';
+ if(h.indexOf('type=recovery')===-1)return;
+ var m=h.match(/access_token=([^&]+)/);
+ if(!m)return;
+ recTok=decodeURIComponent(m[1]);
+ history.replaceState(null,'',window.location.pathname);
+ showWa(false);
+ show('reset');
+})();
+
+$('rs').onclick=async function(){
+ var a=$('np1').value,b=$('np2').value;
+ $('re').textContent='';$('rok').textContent='';
+ if(a.length<8){$('re').textContent='كلمة السر لازم تكون 8 حروف على الأقل.';return}
+ if(a!==b){$('re').textContent='الكلمتين مش متطابقين.';return}
+ try{
+  var r=await fetch(CFG.u+'/auth/v1/user',{
+   method:'PUT',
+   headers:{apikey:CFG.k,'Content-Type':'application/json',Authorization:'Bearer '+recTok},
+   body:JSON.stringify({password:a})
+  });
+  if(!r.ok)throw new Error('http');
+  $('np1').value='';$('np2').value='';
+  $('rok').textContent='تمام، كلمة السر اتغيّرت. ارجع ادخل بيها.';
+  $('rback').hidden=false;
+  recTok=null;
+ }catch(e){
+  $('re').textContent='تعذّر تغيير كلمة السر. الرابط ممكن يكون انتهى، اطلب رابط جديد.';
+ }
+};
+$('rback').onclick=function(){show('login');$('rok').textContent='';$('rback').hidden=true};
 
 /* ===== الطالب ===== */
 var SUBJ=['عربي','إنجليزي','لغة ثانية','رياضيات','فيزياء','كيمياء','أحياء','جيولوجيا','تاريخ','جغرافيا','فلسفة','أخرى'];
@@ -317,9 +362,143 @@ $('cd').onkeydown=function(e){if(e.key==='Enter')$('nm').focus()};
 $('tg').onclick=tLogin;
 $('pw').onkeydown=function(e){if(e.key==='Enter')tLogin()};
 
-show('login');showWa(false);
-var savedCode=ls('tp-code'),savedName=ls('tp-name');
-if(savedCode&&savedName){enter(savedCode,savedName)}
+if(!recTok){
+ show('login');showWa(false);
+ var savedCode=ls('tp-code'),savedName=ls('tp-name');
+ if(savedCode&&savedName){enter(savedCode,savedName)}
+}
 </script>
 </body>
-</html>
+                                                                         </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
